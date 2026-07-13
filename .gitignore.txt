@@ -1,0 +1,58 @@
+# ===============================
+# Operating System
+# ===============================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ===============================
+# IDE
+# ===============================
+.vscode/
+.idea/
+
+# ===============================
+# Logs
+# ===============================
+*.log
+
+# ===============================
+# Environment Files
+# ===============================
+.env
+.env.*
+!.env.example
+
+# ===============================
+# Laravel
+# ===============================
+apps/api/vendor/
+apps/api/node_modules/
+apps/api/storage/*.key
+apps/api/storage/logs/*
+apps/api/storage/framework/cache/*
+apps/api/storage/framework/sessions/*
+apps/api/storage/framework/views/*
+apps/api/bootstrap/cache/*
+
+# ===============================
+# React (Future)
+# ===============================
+apps/web/node_modules/
+apps/web/dist/
+
+# ===============================
+# Testing
+# ===============================
+coverage/
+
+# ===============================
+# Docker
+# ===============================
+docker/data/
+
+# ===============================
+# Temporary Files
+# ===============================
+*.tmp
+*.temp
