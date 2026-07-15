@@ -9,6 +9,8 @@ Route::prefix('v1')->group(function () {
     Route::post('/organizations', [OrganizationController::class, 'store']);
     Route::post('/auth/register', [AuthController::class, 'register']);
     Route::post('/auth/login', [AuthController::class, 'login']);
+    Route::middleware('auth:sanctum')->get('/auth/me', [AuthController::class, 'me']);
+    Route::middleware('auth:sanctum')->post('/auth/logout', [AuthController::class, 'logout']);
 });
 
 /*

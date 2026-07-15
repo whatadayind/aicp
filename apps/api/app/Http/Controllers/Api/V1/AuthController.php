@@ -7,6 +7,7 @@ use App\Http\Requests\RegisterRequest;
 use App\Services\Auth\AuthService;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests\LoginRequest;
+use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
@@ -38,6 +39,28 @@ class AuthController extends Controller
             'success' => true,
             'message' => 'Login successful.',
             'data' => $result,
+        ]);
+    }
+
+    public function me(Request $request): JsonResponse
+    {
+        return response()->json([
+            'success' => true,
+            'message' => 'Current user fetched successfully.',
+            'data' => [
+                'user' => $request->user(),
+                'organizations' => $request->user()->organizations,
+            ],
+        ]);
+    }
+
+    public function logout(Request $request): JsonResponse
+    {
+        $request->user()->currentAccessToken()->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Logout successful.',
         ]);
     }
 }
