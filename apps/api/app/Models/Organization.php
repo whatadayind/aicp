@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use App\Models\User;
 
 class Organization extends Model
 {
@@ -32,5 +33,15 @@ class Organization extends Model
                 $organization->uuid = (string) Str::uuid();
             }
         });
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany(
+            User::class,
+            'organization_users'
+        )
+        ->withPivot('role', 'joined_at')
+        ->withTimestamps();
     }
 }
