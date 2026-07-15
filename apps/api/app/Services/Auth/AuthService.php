@@ -31,10 +31,13 @@ class AuthService
                 'joined_at' => now(),
             ]);
 
+            $token = $user->createToken('api')->plainTextToken;
+
             return [
-                'user' => $user,
-                'organization' => $organization,
-            ];
+                    'user' => $user,
+                    'organization' => $organization,
+                    'token' => $token,
+                ];
         });
     }
 }
