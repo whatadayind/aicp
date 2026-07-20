@@ -6,9 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use App\Models\User;
 use App\Models\Contact;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Database\Factories\OrganizationFactory;
 
 class Organization extends Model
 {
+    use HasFactory;
     protected $fillable = [
         'uuid',
         'name',
