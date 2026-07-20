@@ -8,8 +8,11 @@ use App\Services\Auth\AuthService;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Http\Request;
+use App\Http\Resources\UserResource;
+use App\Http\Resources\OrganizationResource;
+use App\Http\Controllers\Api\BaseApiController;
 
-class AuthController extends Controller
+class AuthController extends BaseApiController
 {
     public function __construct(
         private readonly AuthService $authService
@@ -22,11 +25,15 @@ class AuthController extends Controller
             $request->validated()
         );
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Registration successful.',
-            'data' => $result,
-        ], 201);
+        return $this->success(
+            [
+                'user' => UserResource::make($result['user']),
+                'organization' => OrganizationResource::make($result['organization']),
+                'token' => $result['token'],
+            ],
+            'Registration successful.',
+            201
+        );
     }
 
     public function login(LoginRequest $request): JsonResponse
@@ -35,11 +42,13 @@ class AuthController extends Controller
             $request->validated()
         );
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Login successful.',
-            'data' => $result,
-        ]);
+        return $this->success(
+            [
+                'user' => UserResource::make($result['user']),
+                'token' => $result['token'],
+            ],
+            'Login successful.'
+        );
     }
 
     public function me(Request $request): JsonResponse
@@ -58,9 +67,9 @@ class AuthController extends Controller
     {
         $request->user()->currentAccessToken()->delete();
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Logout successful.',
-        ]);
+        return $this->success(
+            null,
+            'Logout successful.'
+        );
     }
 }

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use App\Models\User;
+use App\Models\Contact;
 
 class Organization extends Model
 {
@@ -43,5 +44,10 @@ class Organization extends Model
         )
         ->withPivot('role', 'joined_at')
         ->withTimestamps();
+    }
+
+    public function contacts()
+    {
+        return $this->hasMany(Contact::class);
     }
 }
